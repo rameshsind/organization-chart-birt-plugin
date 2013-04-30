@@ -87,12 +87,15 @@ public class OrgChartRenderer extends BaseRenderer {
 			ISeriesRenderingHints isrh) throws ChartException {
 
 		SeriesRenderingHints srh = (SeriesRenderingHints) isrh;
+		//validate and populate input data
 		populateParentChildrenMap(srh);
+		//current area bounds for the current series
 		Bounds currentArea = getCellBounds();
+		
 		OrgSeries currentSeries = (OrgSeries) getSeries();
 
 		SeriesDefinition sd = getSeriesDefinition();
-
+		//Render the tree
 		render(ipr, getDevice(), currentArea, currentSeries, sd, p, isrh);
 
 	}
@@ -100,7 +103,7 @@ public class OrgChartRenderer extends BaseRenderer {
 	private final void render(IPrimitiveRenderer ipr, IDeviceRenderer idr,
 			Bounds bo, OrgSeries se, SeriesDefinition sd, Plot p,
 			ISeriesRenderingHints isrh) throws ChartException {
-
+		//Intialize the required variables
 		List<Series> rts = sd.getRunTimeSeries();
 		int iThisSeriesIndex = rts.indexOf(se);
 		if (iThisSeriesIndex == -1)
@@ -111,19 +114,22 @@ public class OrgChartRenderer extends BaseRenderer {
 		dc = getDeferredCache();
 
 		double screenWidth = bo.getWidth();
+		//Root node's parent is 0
 		int rootParent = 0;
 		List<Node> list = parentChidrenMap.get(rootParent);
 		if (list.isEmpty()) {
-			return;
+			return;// if we don't have root node return
 		}
 		int count = 1;
 		while (true) {
 			if (count == 1) {
+				//root label position
 				rootLableHeight += bo.getTop()
 						+ (se.getLabel().getInsets().getTop() + se.getLabel()
 								.getInsets().getBottom())
 						* 1.4
 						+ (se.getLabel().getCaption().getFont().getSize() * 1.8);
+				//draw the root node
 				drawNode(isrh, ipr, se, elPalette, iThisSeriesIndex,
 						bo.getLeft(), bo.getLeft() + screenWidth,
 						rootLableHeight, list);
@@ -131,7 +137,7 @@ public class OrgChartRenderer extends BaseRenderer {
 				continue;
 			}
 			List<Node> childrenList = new ArrayList<Node>();
-
+			//Iterate the parent nodes and form the children for the each parent
 			for (Node parentNode : list) {
 				List<Node> nodeList = parentChidrenMap.get(parentNode.getId());
 				if (nodeList != null) {
@@ -145,6 +151,7 @@ public class OrgChartRenderer extends BaseRenderer {
 			if (childrenList.isEmpty()) {
 				break;
 			} else {
+				//process all the nodes in the a row
 				drawNode(isrh, ipr, se, elPalette, iThisSeriesIndex,
 						bo.getLeft(), bo.getLeft() + screenWidth,
 						rootLableHeight + (70 * (count - 1)), childrenList);
@@ -153,7 +160,7 @@ public class OrgChartRenderer extends BaseRenderer {
 			count++;
 		}
 	}
-
+	//draw the labels and its connectors (recursively) using divide and draw
 	private void drawNode(ISeriesRenderingHints isrh, IPrimitiveRenderer ipr,
 			OrgSeries se, EList<Fill> elPalette, int iThisSeriesIndex,
 			double screenStartWidth, double screenEndWidth, double hieght,
@@ -219,7 +226,7 @@ public class OrgChartRenderer extends BaseRenderer {
 			getRunTimeContext().notifyStructureChange(
 					IStructureDefinitionListener.AFTER_DRAW_DATA_POINT_LABEL,
 					laDataPoint);
-
+			//Except the root node, we need to draw line connector for all the nodes
 			if (node.getParentId() != 0) {
 
 				double nodeHeight = (laDataPoint.getInsets().getTop() + laDataPoint
@@ -254,6 +261,7 @@ public class OrgChartRenderer extends BaseRenderer {
 			}
 			return;
 		}
+		//odd number of nodes in a row
 		if (list.size() % 2 == 1) {
 			List<Node> list1 = new ArrayList<Node>();
 			List<Node> list2 = new ArrayList<Node>();
@@ -281,7 +289,7 @@ public class OrgChartRenderer extends BaseRenderer {
 					middleStartWidth + 100, screenEndWidth, hieght, list3);
 
 		} else {
-
+			//even number of nodes in a row
 			List<Node> list1 = new ArrayList<Node>();
 			List<Node> list2 = new ArrayList<Node>();
 			int count = 1;
@@ -317,6 +325,7 @@ public class OrgChartRenderer extends BaseRenderer {
 			if (oea.getParentId() == 0) {
 				isRootNodeAvailable = true;
 			}
+			//node id and parent id can't be same
 			if (oea.getId() == oea.getParentId()) {
 				throw new ChartException(ChartEngineExtensionPlugin.ID,
 						ChartException.RENDERING,
@@ -324,6 +333,7 @@ public class OrgChartRenderer extends BaseRenderer {
 						Messages.getResourceBundle(getRunTimeContext()
 								.getULocale()));
 			}
+			// we should not have any duplicate node id
 			if(!nodeIdSet.add(oea.getId()))
 			{
 				throw new ChartException(ChartEngineExtensionPlugin.ID,
@@ -341,6 +351,7 @@ public class OrgChartRenderer extends BaseRenderer {
 					dataPointHints, position));
 			position++;
 		}
+		//Root node not available
 		if (!isRootNodeAvailable) {
 			throw new ChartException(ChartEngineExtensionPlugin.ID,
 					ChartException.RENDERING,
@@ -348,7 +359,7 @@ public class OrgChartRenderer extends BaseRenderer {
 					Messages.getResourceBundle(getRunTimeContext().getULocale()));
 		}
 	}
-
+	//This class holds data for each node in the tree
 	class Node {
 		int id;
 		String name;
