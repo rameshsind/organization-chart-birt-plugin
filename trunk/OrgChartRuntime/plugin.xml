@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.birt.chart.engine.datasetprocessors">
+      <datasetProcessor
+            processor="org.eclipse.birt.orgchart.chart.extension.datafeed.OrgDataSetProcessorImpl"
+            series="org.eclipse.birt.orgchart.chart.model.OrgSeries.impl.OrgSeriesImpl">
+      </datasetProcessor>
+   </extension>
+   <extension
+         point="org.eclipse.birt.chart.engine.charttypes">
+      <chartType
+            modelLoader="org.eclipse.birt.orgchart.chart.model.OrgChartModelLoader"
+            namespaceURI="http://www.birt.eclipse.org/OrgChartModelType">
+      </chartType>
+   </extension>
+   <extension
+         point="org.eclipse.birt.chart.engine.modelrenderers">
+      <modelRenderer
+            renderer="org.eclipse.birt.orgchart.chart.render.OrgChartRenderer"
+            series="org.eclipse.birt.orgchart.chart.model.OrgSeries.impl.OrgSeriesImpl">
+      </modelRenderer>
+   </extension>
+   <extension
+         point="org.eclipse.birt.chart.engine.datapointdefinitions">
+      <datapointDefinition
+            definition="org.eclipse.birt.orgchart.chart.extension.datafeed.OrgDataPointDefinition"
+            series="org.eclipse.birt.orgchart.chart.model.OrgSeries.impl.OrgSeriesImpl">
+      </datapointDefinition>
+   </extension>
+
+</plugin>

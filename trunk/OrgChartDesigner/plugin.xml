@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.birt.chart.ui.types">
+      <chartType
+            classDefinition="org.eclipse.birt.orgchart.chart.swt.type.OrgChart"
+            name="Org Chart">
+      </chartType>
+   </extension>
+   <extension
+         point="org.eclipse.birt.chart.ui.seriescomposites">
+      <seriescomposite
+            seriesType="org.eclipse.birt.orgchart.chart.model.OrgSeries.impl.OrgSeriesImpl"
+            seriesUIProvider="org.eclipse.birt.orgchart.chart.swt.series.OrgSeriesUIProvider">
+      </seriescomposite>
+   </extension>
+
+</plugin>
