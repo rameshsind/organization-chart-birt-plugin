@@ -131,7 +131,8 @@ public class OrgChart extends DefaultChartTypeImpl {
 	public Chart getModel(String sSubType, Orientation orientation,
 			String sDimension, Chart currentChart) {
 		ChartWithoutAxes newChart = null;
-
+		//Since this chart is different from all the other chart types, We should not take chart information from other chart
+		//Because this chart requires data heirarchy , we are always setting the sample data on chart type change
 		if (currentChart != null) {
 			newChart = (ChartWithoutAxes) getConvertedChart(currentChart,
 					sSubType, sDimension);
@@ -214,7 +215,7 @@ public class OrgChart extends DefaultChartTypeImpl {
 		}
 		return null;
 	}
-
+	//Below method is not used currently
 	private Series getConvertedSeries(Series series, int seriesIndex) {
 		// Do not convert base series
 		if (series.getClass().getName().equals(SeriesImpl.class.getName())) {
