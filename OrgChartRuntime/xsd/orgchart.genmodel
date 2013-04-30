@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/OrgChartRuntime/src"
+    modelPluginID="OrgChartRuntime" modelName="Orgchart" importerID="org.eclipse.xsd.ecore.importer"
+    complianceLevel="6.0" copyrightFields="false" usedGenPackages="../../BirtChartEngineSource/src/model/model.genmodel#//attribute ../../BirtChartEngineSource/src/model/model.genmodel#//component ../../BirtChartEngineSource/src/model/model.genmodel#//data ../../BirtChartEngineSource/src/model/model.genmodel#//layout">
+  <foreignModel>OrgSeries.xsd</foreignModel>
+  <genPackages prefix="Type" basePackage="org.eclipse.birt.orgchart.chart.model" resource="XML" disposableProviderFactory="true"
+      ecorePackage="OrgSeries.ecore#/">
+    <genClasses ecoreClass="OrgSeries.ecore#//OrgSeries">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference OrgSeries.ecore#//OrgSeries/lineAttributes"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

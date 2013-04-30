@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: OrgChartDesigner
+Bundle-SymbolicName: OrgChartDesigner;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: orgchartdesigner.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.birt.chart.ui;bundle-version="3.7.2",
+ org.eclipse.birt.chart.ui.extension;bundle-version="3.7.2",
+ com.ibm.icu;bundle-version="4.4.2",
+ org.eclipse.birt.chart.engine.extension;bundle-version="3.7.2",
+ OrgChartRuntime;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:pref="http://www.birt.eclipse.org/ChartModelComponent"
+	xmlns:pref1="http://www.birt.eclipse.org/ChartModel"
+	xmlns:pref2="http://www.birt.eclipse.org/ChartModelAttribute"
+	xmlns:pref3="http://www.birt.eclipse.org/ChartModelData"
+	xmlns:pref4="http://www.birt.eclipse.org/ChartModelLayout">
+	<xsd:import
+		schemaLocation="../../BirtChartEngineSource/xsd/attribute.xsd"
+		namespace="http://www.birt.eclipse.org/ChartModelAttribute">
+	</xsd:import>
+	<xsd:import
+		schemaLocation="../../BirtChartEngineSource/xsd/component.xsd"
+		namespace="http://www.birt.eclipse.org/ChartModelComponent">
+	</xsd:import>
+
+
+
+
+
+
+
+
+
+
+	<xsd:complexType name="OrgSeries">
+		<xsd:annotation>
+			<xsd:documentation>
+				Node as Lable and Connectors will use LineAttributes
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="pref:Series">
+				<xsd:sequence>
+					<xsd:element name="LineAttributes"
+						type="pref2:LineAttributes">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+</xsd:schema>
